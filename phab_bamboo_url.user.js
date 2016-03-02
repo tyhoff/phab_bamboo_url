@@ -61,12 +61,10 @@ function append_link_to_phabricator_project(build_link, search_url) {
 function append_link_to_bamboo() {
     var revision = $('div.variables-container td.name:contains("revision") + td.value');
     
-    console.log(revision);
     if (revision.length == 0) {
         return;
     }
 
-    console.log('here');
     var revision_number = revision.text()
     revision.html($('<a>', {
         text: revision_number,
