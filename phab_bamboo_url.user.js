@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Bamboo Build Link
 // @namespace    http://tampermonkey.net/
-// @version      0.3
+// @version      0.4
 // @description  Appends the Bamboo Build URL after the "Walter, Please build tintin"
 // @author       Tyler
 // @match        http://phabricator.marlinspike.hq.getpebble.com/D*
@@ -60,7 +60,7 @@ function append_link_to_phabricator_project(build_link, search_url) {
 
 function append_link_to_bamboo() {
     var revision = $('div.variables-container td.name:contains("revision") + td.value');
-    
+
     if (revision.length == 0) {
         return;
     }
