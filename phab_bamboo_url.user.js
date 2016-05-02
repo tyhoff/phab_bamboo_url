@@ -55,6 +55,18 @@ function append_link_to_phabricator_project(build_link, search_url) {
             href: bamboo_url,
             target: '_blank',
         }).appendTo(build_link_container);
+
+        // Append a Restart link if the build link icon is red (ie. it failed)
+        if (build_link_container.find("span").filter(".red").length > 0) {
+            build_link_container.append(" - ");
+
+            var rebuild_url = build_url.replace("/build/", "/build/restart/");
+            $('<a>', {
+                text: 'Restart',
+                title: 'Restart Build',
+                href: rebuild_url,
+            }).appendTo(build_link_container);
+        }
     }});
 }
 
