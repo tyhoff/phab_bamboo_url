@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Bamboo Build Link
 // @namespace    http://tampermonkey.net/
-// @version      0.5
+// @version      0.6
 // @description  Appends the Bamboo Build URL after the "Walter, Please build tintin"
 // @author       Tyler
 // @match        http://phabricator.marlinspike.hq.getpebble.com/D*
@@ -86,8 +86,44 @@ function append_link_to_bamboo() {
     }));
 }
 
+// Adds a "Hide/Show Lint Notes" to the right hand sidebar
+function add_lint_hide_button() {
+    var action_list = $("ul.phabricator-action-list-view");
+
+    var hidden = false; // Used as an indicator for toggle
+    function get_link_text() {
+      if (hidden) {
+         return "Show Lint Notes";
+      }
+      return "Hide Lint Notes";
+    }
+    var link = $('<a>', {
+        text: get_link_text(),
+        title: get_link_text(),
+        class: "phabricator-action-view-item",
+        click: function() {
+           var notes = $("div.differential-inline-comment-synthetic");
+           for (var i = 0; i < notes.length; i++) {
+               var elem = $(notes[i]).parent().parent();
+               if (hidden) {
+                   elem.show();
+               } else {
+                   elem.hide();
+               }
+           }
+           hidden = !hidden;
+           var txt = get_link_text();
+           link.text(txt);
+           link.title(txt);
+           return false; // Don't actually go anywhere
+        }
+    });
+    action_list.append($('<li>', { class: "phabricator-action-view"}).append(link));
+}
+
 if (window.location.href.includes('phabricator')) {
     append_link_to_phabricator();
+    add_lint_hide_button();
 } else if (window.location.href.includes('bamboo')) {
     append_link_to_bamboo();
 }
