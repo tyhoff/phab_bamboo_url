@@ -1,11 +1,11 @@
 // ==UserScript==
 // @name         Bamboo Build Link
 // @namespace    http://tampermonkey.net/
-// @version      0.6
+// @version      0.7
 // @description  Appends the Bamboo Build URL after the "Walter, Please build tintin"
 // @author       Tyler
-// @match        http://phabricator.marlinspike.hq.getpebble.com/D*
-// @match        http://bamboo.marlinspike.hq.getpebble.com/browse/*
+// @match        *://phabricator.marlinspike.hq.getpebble.com/D*
+// @match        *://bamboo.marlinspike.hq.getpebble.com/browse/*
 // @grant        none
 // @require http://code.jquery.com/jquery-latest.js
 // ==/UserScript==
